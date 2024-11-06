@@ -1,0 +1,175 @@
+ //DAA LAB 3 : Date 14 August 2024
+// Program 1 : Write a program using recursion to convert a Decimal number to 
+//Binary
+#include<stdio.h>
+int f(int n)
+{
+if (n == 0) 
+return 0; 
+else
+return (n%2 + 10*f(n/2));
+}
+int main()
+{
+int n,c;
+printf("Enter the integer number whose binary form you want : n =");
+scanf("%d",&n);
+printf("%d", f(n));
+return 0;
+}
+OUTPUT :
+Enter the integer number whose binary form you want : n =23
+10111
+ //DAA LAB 3 : Date 14 August 2024
+// Program 2 : Write a program using recursion to implement insertion sort.
+#include <math.h>
+#include <stdio.h>
+void insertionSort(int arr[], int n)
+{
+int i, key, j;
+for (i = 1; i < n; i++) 
+{
+key = arr[i];
+j = i - 1;
+while (j >= 0 && arr[j] > key) 
+{
+arr[j + 1] = arr[j];
+j = j - 1;
+}
+arr[j + 1] = key;
+}
+}
+void printArray(int arr[], int n)
+{
+int i;
+printf("The sorted array is : \n");
+for (i = 0; i < n; i++)
+printf("%d ", arr[i]);
+printf("\n");
+}
+int main()
+{ int n,arr[100],i;
+ printf("Enter the size of array : ");
+ scanf("%d", &n);
+ printf("Enter the elements in array : \n");
+ for(i=0;i<n;i++)
+ scanf("%d",&arr[i]);
+insertionSort(arr, n);
+printArray(arr, n);
+return 0;
+}
+OUTPUT:
+Enter the size of array : 7
+Enter the elements in array : 
+6
+2
+10
+5
+4
+11
+15
+The sorted array is : 
+2 4 5 6 10 11 15 
+ //DAA LAB 3 : Date 14 August 2024
+// Program 3 : Write a program using recursion to reverse the given number.
+#include <stdio.h>
+#include <math.h>
+int reverse(int n)
+{
+ 
+ int digit = log10(n);
+ 
+ 
+ if(n == 0)
+ return 0;
+ 
+ return ((n%10 * pow(10, digit)) + reverse(n/10));
+}
+int main()
+{
+ int n,b, rev,i,count=0;
+ 
+ printf("Enter any number: ");
+ scanf("%d", &n);
+ b=n;
+ while(b%10==0)
+ {
+ count++;
+ b=b/10;
+ }
+ 
+ rev = reverse(n); 
+ printf("The reverse of %d is ",n);
+ for(i=0;i<count;i++)
+ {
+ printf("0");
+ 
+ }
+ printf("%d",rev);
+ 
+ return 0;
+}
+OUTPUT:
+Enter any number: 78789000
+The reverse of 78789000 is 00098787
+ //DAA LAB 4 : Date 14 August 2024
+// Program 4 : Write a program using recursion to calculate power of any number
+#include<stdio.h>
+#include<math.h>
+int p( int a, int b)
+{
+ if ( b==0)
+ return 1;
+ if ( b==1)
+ return a;
+ else 
+ return (a*p(a,b-1));
+ 
+}
+int main()
+{ int a,b;
+ printf("Enter the index : a = ");
+ scanf("%d", &a);
+ printf("Enter the exponent : b = ");
+ scanf("%d", &b);
+ if(a==0&&b==0)
+ {
+ printf("ERROR !!!");
+ }
+ else
+ printf("%d ^ % d = % d", a , b , p(a,b));
+ return 0;
+}
+OUTPUT:
+Enter the index : a = 5
+Enter the exponent : b = 3
+5 ^ 3 = 125
+ //DAA LAB 3 : Date 14 August 2024
+// Program 5 : Write a program using recursion to find the product of two numbers
+#include<stdio.h>
+#include<math.h>
+int pro (int a, int b)
+{ if( b==0)
+ return 0;
+ if(b<0)
+ return -pro(a,-b);
+ else 
+ return a + pro(a,b-1);
+ 
+}
+int main()
+{
+ int a , b;
+ printf("Enter first number a = ");
+ scanf("%d", &a);
+ printf("Enter first number b = ");
+ scanf("%d", &b);
+ 
+ printf("The product of %d and %d is %d ", a,b,pro(a,b));
+ return 0;
+}
+OUTPUT:
+Enter first number a = 5
+Enter first number b = 6
+The product of 5 and 6 is 30 
+ 
