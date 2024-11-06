@@ -1,0 +1,331 @@
+                             // DAA LAB 2 : 7 AUGUST 2024
+
+//PROGRAM 1 :  Write a program that takes as input two sorted arrays and merge them into a single sorted array.
+
+#include <stdio.h>
+#include <stdlib.h>
+ 
+int main()
+{
+    int i, n, j, k;
+    printf("Enter the size of the first array: ");
+    scanf("%d", &n);
+    int arr1[n];
+    printf("Enter the elements of the first array: \n");
+    for (i = 0; i < n; i++)
+    {
+        scanf("%d", &arr1[i]);
+    }
+    printf("Enter the size of the second array: ");
+    scanf("%d", &k);
+    int arr2[k];
+    printf("Enter the elements of the second array: \n");
+    for (j = 0; j < k; j++)
+    {
+        scanf("%d", &arr2[j]);
+    }
+    int arr3[n + k];
+    i = j = 0;
+    int in;
+    for (in = 0; in < n + k; in ++)
+    {
+        if (i < n && j < k)
+        {
+            if (arr1[i] < arr2[j])
+            {
+                arr3[in] = arr1[i];
+                i++;
+            }
+            else
+            {
+                arr3[in] = arr2[j];
+                j++;
+            }
+        }
+        else if (i < n)
+        {
+            arr3[in] = arr1[i];
+            i++;
+        }
+        else
+        {
+            arr3[in] = arr2[j];
+            j++;
+        }
+    }
+    printf("The merged array is: \n");
+    for (in = 0; in < n + k; in++)
+    {
+        printf("%d ", arr3[in]);
+    }
+    printf("\n");
+    return 0;
+}
+
+OUTPUT :
+
+Enter the size of the first array: 5
+Enter the elements of the first array: 
+5
+8
+10
+19
+21
+Enter the size of the second array: 4
+Enter the elements of the second array: 
+2
+5
+7
+15
+The merged array is: 
+2 5 5 7 8 10 15 19 21
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+//PROGRAM 2: Write a program using recursion to implement Merge Sort.
+
+
+#include <stdio.h>
+
+// Function to merge two subarrays of arr[]
+void merge(int arr[], int left, int mid, int right) 
+{
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    // Create temporary arrays
+    int L[n1], R[n2];
+
+    // Copy data to temporary arrays L[] and R[]
+    for (int i = 0; i < n1; i++)
+        L[i] = arr[left + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = arr[mid + 1 + j];
+
+    // Merge the temporary arrays back into arr[left..right]
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2) 
+    {
+        if (L[i] <= R[j]) 
+        {
+            arr[k] = L[i];
+            i++;
+        } else 
+        {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    // Copy the remaining elements of L[], if any
+    while (i < n1)
+    {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+
+    // Copy the remaining elements of R[], if any
+    while (j < n2)
+    {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+}
+
+// Function to implement merge sort
+void mergeSort(int arr[], int left, int right) 
+{
+    if (left < right) 
+    {
+        int mid = left + (right - left) / 2;
+
+        // Recursively sort the first and second halves
+        mergeSort(arr, left, mid);
+        mergeSort(arr, mid + 1, right);
+
+        // Merge the sorted halves
+        merge(arr, left, mid, right);
+    }
+}
+
+// Function to print an array
+void printArray(int arr[], int size) 
+{
+    for (int i = 0; i < size; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
+}
+
+int main() 
+{
+    int n;
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    printf("Enter the elements: ");
+    for (int i = 0; i < n; i++)
+    {
+        scanf("%d", &arr[i]);
+    }
+
+    printf("Given array is: \n");
+    printArray(arr, n);
+
+    mergeSort(arr, 0, n - 1);
+
+    printf("\nSorted array is: \n");
+    printArray(arr, n);
+
+    return 0;
+}
+
+
+OUTPUT:
+
+Enter the number of elements: 7
+Enter the elements: 6
+2
+10
+5
+4
+11
+15
+Given array is: 
+6 2 10 5 4 11 15 
+
+Sorted array is: 
+2 4 5 6 10 11 15
+
+
+// Problem 3: Write a program using recursion such that given an integer n, it returns True if it is a power of four, Otherwise returns false.
+
+#include <stdio.h>
+
+
+int PFour(int n) 
+{
+    if (n == 1) 
+    {
+        return 1;
+    }
+    if (n == 0 || n % 4 != 0) 
+    {
+        return 0;
+    }
+    return PFour(n / 4);
+}
+
+int main() {
+    int n;
+    printf("Enter an integer: ");
+    scanf("%d", &n);
+
+    if (PFour(n)) 
+    {
+        printf("True", n);
+    } else 
+    {
+        printf("\nFalse", n);
+    }
+
+    return 0;
+}
+
+OUTPUT:
+
+Enter an integer: 1024
+True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// PROGRAM 4: Write a program using recursion to calculate the summation of the digits in the given number.
+
+#include <stdio.h>
+
+
+int digitSum(int n) 
+{
+    if (n == 0) 
+    {
+        return 0;
+    }
+    return (n % 10) + digitSum(n / 10);
+}
+
+int main() 
+{
+    int n;
+    printf("Enter an integer: ");
+    scanf("%d", &n);
+
+    int sum = digitSum(n);
+    printf("The sum of the digits of %d is %d.\n", n, sum);
+
+    return 0;
+}
+
+
+OUTPUT:
+
+Enter an integer: 2132
+The sum of the digits of 2132 is 8.
