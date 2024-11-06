@@ -1,0 +1,57 @@
+//            DAA LAB 5 : 4 September 2024
+
+/* PROGRAM 2: Construct a binary search tree from a random array of size 15. Also, write a recursive
+              function for in-order traversal to print the elements.*/
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node 
+{
+    int data;
+    struct Node *left, *right;
+} Node;
+
+Node* insert(Node* node, int data) 
+{
+    if (!node) 
+	{
+        Node* newNode = (Node*)malloc(sizeof(Node));
+        newNode->data = data;
+        newNode->left = newNode->right = NULL;
+        return newNode;
+    }
+    if (data < node->data)
+        node->left = insert(node->left, data);
+    else
+        node->right = insert(node->right, data);
+    return node;
+}
+
+void inorder(Node* root) 
+{
+    if (root) {
+        inorder(root->left);
+        printf("%d ", root->data);
+        inorder(root->right);
+    }
+}
+
+int main() 
+{
+    int arr[15] = {45, 20, 10, 5, 30, 50, 60, 40, 70, 90, 85, 75, 80, 55, 35, 25};
+    Node* root = NULL;
+    for (int i = 0; i < 15; i++)
+        root = insert(root, arr[i]);
+    
+    printf("In-order traversal: ");
+    inorder(root);
+    printf("\n");
+    return 0;
+}
+
+
+OUTPUT :
+
+In-order traversal: 5 10 20 25 30 40 45 50 55 60 70 75 80 85 90
