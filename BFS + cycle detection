@@ -1,0 +1,89 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+// Function to perform BFS and detect a cycle in an undirected graph
+void bfsAndCycle(int n, int e, int edges[e][2]) {
+    // Adjacency list for the graph
+    int adj[n][n];  
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            adj[i][j] = 0;  // Initialize adjacency matrix with 0 (no edges)
+        }
+    }
+
+    // Fill adjacency matrix with the edges
+    for (int i = 0; i < e; i++) {
+        int u = edges[i][0];
+        int v = edges[i][1];
+        adj[u][v] = 1;  // There is an edge between u and v
+        adj[v][u] = 1;  // Since it's an undirected graph
+    }
+
+    // BFS initialization
+    int queue[n], front = -1, rear = -1;
+    bool visited[n];  // To track visited nodes
+    int parent[n];    // To track parent of each node for cycle detection
+    bool cycle = false;
+    
+    // Initialize arrays
+    for (int i = 0; i < n; i++) {
+        visited[i] = false;
+        parent[i] = -1;
+    }
+
+    // Start BFS from node 0
+    visited[0] = true;
+    queue[++rear] = 0;  // Add node 0 to the queue
+
+    // Perform BFS
+    while (front < rear) {
+        int currnode = queue[++front];
+        printf("%d ", currnode);  // Print current node during BFS
+
+        // Traverse all neighbors of the current node
+        for (int i = 0; i < n; i++) {
+            if (adj[currnode][i] == 1) {  // If there is an edge between currnode and i
+                if (!visited[i]) {
+                    visited[i] = true;  // Mark neighbor as visited
+                    queue[++rear] = i;  // Add neighbor to the queue
+                    parent[i] = currnode;  // Set the parent of the neighbor
+                } else if (parent[currnode] != i) {
+                    // If the neighbor is visited and is not the parent of current node,
+                    // there is a cycle
+                    cycle = true;
+                }
+            }
+        }
+    }
+
+    // Check if cycle is detected
+    if (cycle) {
+        printf("\nCycle is present\n");
+    } else {
+        printf("\nNo cycle present\n");
+    }
+}
+
+int main() {
+    int n, e;
+
+    // Input number of nodes and edges
+    printf("Enter number of nodes n: ");
+    scanf("%d", &n);
+    printf("Enter number of edges e: ");
+    scanf("%d", &e);
+
+    int edges[e][2];
+
+    // Input the edges
+    for (int i = 0; i < e; i++) {
+        printf("Enter edge %d (u v): ", i + 1);
+        scanf("%d %d", &edges[i][0], &edges[i][1]);
+    }
+
+    // Call the function to perform BFS and check for cycles
+    bfsAndCycle(n, e, edges);
+
+    return 0;
+}
