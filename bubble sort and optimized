@@ -1,0 +1,77 @@
+//            DAA LAB 5 : 4 September 2024 
+/*  PROGRAM 1 : Implement the Bubble Sort algorithm and optimize it for the following inputs. Also,
+                count the number of comparisons. Write a separate program for each implementation.
+                Input 1: 78, 2, 5, 23, 76, 12, 17
+                Input 2: 99, 1, 2, 3, 4, 5, 6, 7
+                Input 3: 4, 3, 2, 1, 7, 8, 9, 10
+*/
+
+#include <stdio.h>
+
+void bubbleSort(int arr[], int n) 
+{
+    int comparisons = 0;
+    for (int i = 0; i < n - 1; i++) 
+    {
+        int swapped = 0;
+        for (int j = 0; j < n - 1 - i; j++) 
+        {
+            comparisons++;
+            if (arr[j] > arr[j + 1]) 
+            {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+                swapped = 1;
+            }
+        }
+        if (!swapped) break;
+    }
+    printf("Sorted array: ");
+    for (int i = 0; i < n; i++) 
+    {
+        printf("%d ", arr[i]);
+    }
+    printf("\nNumber of comparisons: %d\n", comparisons);
+}
+
+int main() 
+{
+    // Input 1
+    int arr1[] = {78, 2, 5, 23, 76, 12, 17};
+    int n1 = sizeof(arr1) / sizeof(arr1[0]);
+    printf("Input 1:\n");
+    bubbleSort(arr1, n1);
+    
+    // Input 2
+    int arr2[] = {99, 1, 2, 3, 4, 5, 6, 7};
+    int n2 = sizeof(arr2) / sizeof(arr2[0]);
+    printf("\nInput 2:\n");
+    bubbleSort(arr2, n2);
+    
+    // Input 3
+    int arr3[] = {4, 3, 2, 1, 7, 8, 9, 10};
+    int n3 = sizeof(arr3) / sizeof(arr3[0]);
+    printf("\nInput 3:\n");
+    bubbleSort(arr3, n3);
+
+    return 0;
+}
+
+
+
+OUTPUT:
+
+
+
+Input 1:
+Sorted array: 2 5 12 17 23 76 78 
+Number of comparisons: 18
+
+Input 2:
+Sorted array: 1 2 3 4 5 6 7 99 
+Number of comparisons: 13
+
+Input 3:
+Sorted array: 1 2 3 4 7 8 9 10 
+Number of comparisons: 22
