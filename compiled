@@ -1,0 +1,941 @@
+thIS IS CODE.tILL bfs
+-------------------------------------------------------------------------
+Practical - 1 
+-------------------------------------------------------------------------
+Ques1- Write a program to give sum of the first n natural numbers.
+Code:
+#include <stdio.h>
+int main() {
+    int n;
+    int sum=0;
+    printf("Enter the no.:");
+    scanf("%d",&n);
+    for (int i=1;i<=n;i++)
+    {
+        sum = sum+i;
+    }
+    printf("%d",sum);
+    return 0;
+}
+Output:
+Enter the no.:55
+1540
+
+Ques2- Write a program that takes input n and give n!.
+Code:
+#include <stdio.h>
+int main() {
+    int n;
+    long int fact=1;
+    printf("Enter the no. : ");
+    scanf("%d",&n);
+    for ( int i=1;i<=n;i++){
+        fact=fact*i;
+    }
+    printf("The factorial of n is: %ld",fact);
+    return 0;
+}
+
+Output:
+Enter the no. : 10
+The factorial of n is: 3628800
+
+Ques3- Write code for Fibonacci sequence.
+Code:
+#include <stdio.h>
+int main() {
+    int n;
+    printf("Enter the no. : ");
+    scanf("%d",&n);
+    int a=0;
+    int b=1;
+    int c=a+b;
+    printf("The Fibonacci sequence of n numbers is: %d   %d  ",b,c);
+    for (int i=0;i<(n-2); i++){
+        a=b;
+        b=c;
+        c=a+b;
+        printf("  %d ",c);
+    }
+    return 0;
+}
+Output:
+Enter the no. : 10
+The Fibonacci sequence of n numbers is: 1   1    2   3   5   8   13   21   34   55 
+
+-------------------------------------------------------------------------
+Practical - 2
+-------------------------------------------------------------------------
+Ques-1 : Write a program that takes input of two sorted array and merge them into single sorted array.
+Code:
+#include<stdio.h>
+#include<stdlib.h>
+void merg_sorted_arr(int array1[],int size_arr_1,int array2[],int size_arr_2, int merged_arr[]){
+    int i=0;
+    int j=0;
+    int k=0;
+    while(i<size_arr_1 && j<size_arr_2){
+        if (array1[i]<=array2[j]){
+            merged_arr[k]=array1[i];
+            i++;
+        }
+        else {
+            merged_arr[k]=array2[j];
+            j++;
+        }
+        k++;
+    }
+    while(i<size_arr_1){
+        merged_arr[k]=array1[i];
+        i++;
+        k++;
+    }
+    while(j<size_arr_2){
+        merged_arr[k]=array2[j];
+        j++;
+        k++;
+    }
+}
+void print_arr(int array[],int size){
+    for (int i=0;i<size;i++){
+        printf("%d\t",array[i]);
+    }
+    printf("\n");
+}
+int main() {
+  int array1[]={5,8,10,19,21};
+  int array2[]={2,5,7,15};
+    int size_arr_1 = sizeof(array1)/sizeof(array1[0]);
+    int size_arr_2 = sizeof(array2)/sizeof(array2[0]);
+    int merged_arr[size_arr_1+size_arr_2];
+    merg_sorted_arr(array1,size_arr_1,array2,size_arr_2,merged_arr);
+    print_arr(merged_arr,size_arr_1 + size_arr_2);
+    return 0;
+}
+Output:
+2	5	5	7	8	10	15	19	21
+
+Ques-2: Write a program using Recursion to implement merge sort.
+Code:
+#include <stdio.h>
+void merge(int arr[], int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+    int L[n1], R[n2];
+    for (int i = 0; i < n1; i++)
+        L[i] = arr[left + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = arr[mid + 1 + j];
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+}
+void mergeSort(int arr[], int left, int right) {
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+        mergeSort(arr, left, mid);
+        mergeSort(arr, mid + 1, right);
+        merge(arr, left, mid, right);
+    }
+}
+int main() {
+    int arr[] = {12, 11, 13, 5, 6, 7};
+    int arr_size = sizeof(arr) / sizeof(arr[0]);
+    printf("Given array is: ");
+    for (int i = 0; i < arr_size; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
+    mergeSort(arr, 0, arr_size - 1);
+    printf("Sorted array is: ");
+    for (int i = 0; i < arr_size; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
+    return 0;
+}
+
+Output:
+Given array is: 12 11 13 5 6 7 
+Sorted array is: 5 6 7 11 12 13 
+
+Ques-3:
+Write a program, using recursion, given an integer n , it returns true if it is a power if 4, otherwise false.
+
+Code:
+#include <stdio.h>
+#include <stdbool.h>
+void Power_of_four(int n){
+    if (n==1){
+        printf("yes");
+         return;
+    }
+    if (n<4 || n%4 !=0){
+        printf("No");
+         return;
+    }
+    else
+    Power_of_four( n/4);
+}
+int main(){
+    int n;
+    printf("Enter the no. you want to check whether is it power of Four or not: ");
+    scanf("%d",&n);
+    Power_of_four(n);
+    return 0;
+}
+
+Output:
+Enter the no. you want to check whether is it power of Four or not: 45
+No
+
+Ques 4: Write a program to find summation of digits of a number using recursion.
+Code:
+#include <stdio.h>
+#include <stdbool.h>
+int summation(int n){
+    if (n==0)
+    return 0;
+    return n%10 + summation(n/10);
+}
+int main(){
+    int n;
+    printf("Enter the no.: ");
+    scanf("%d",&n);
+    int sum;
+    sum=summation(n);
+    printf("The sum of digits of a number is: %d",sum);
+    return 0;
+}
+Output:
+Enter the no. :  405390
+The sum of digits of a number is: 21
+
+-------------------------------------------------------------------------
+Practical - 3 
+-------------------------------------------------------------------------
+Ques1:
+Write recursion code to convert decimal to binary:
+#include <stdio.h>
+void DtoB(int n){
+    if(n==0){
+        return;
+    }
+    else{
+        DtoB(n/2);
+        printf("%d",n%2);
+    }
+}
+int main()
+{
+    int D=25;
+    if(D==0)
+    {
+        printf("0");
+    }
+    else{
+        DtoB(D);
+    }
+    printf("\n");
+
+    return 0;
+}
+OUTPUT:
+11001
+
+Ques2: Write a program to implement Insertion sort:
+Code:
+#include<stdio.h>
+ void insertion_sort(int arr[],int n){
+        int i,j ,key;
+        for(i=1;i<n;i++)
+        { 
+            key=arr[i];
+            j=i-1;
+            
+            while(j>=0 && arr[j]>key){
+                arr[j+1]=arr[j];
+                j=j-1;
+            }
+            arr[j+1]=key;
+        }
+    }
+    void print_arr(int n, int arr[])
+    { 
+        for (int k=0;k<n;k++)
+        {
+            printf("%d \t", arr[k]);
+        }
+    }
+int main(){
+    int arr[]={6,2,10,5,4,11,15};
+    int n=sizeof(arr)/sizeof(arr[0]);
+    printf("Array:\n");
+    print_arr(n,arr);
+    insertion_sort(arr,n);
+    printf("\nSorted array:\n");
+    print_arr(n,arr);
+    return 0;
+}
+OUTPUT:
+Array:
+6 	2 	0 	5 	4 	11 	15 	
+Sorted array:
+0 	2 	4 	5 	6 	11 	15 	
+
+
+
+3.Write a program using recursion to reverse a number:
+Code:
+#include<stdio.h>
+#include<math.h>
+int reversed(int num){
+    int rev=0;
+     while(num!=0){
+        int rem=num%10;
+        rev=rev*10+rem;
+        num=num/10;
+    }
+    return rev;
+}
+int count(int num){
+    int count=0;
+    if (num==0){
+        return 1;
+    }
+    while(num>0){
+        count++;
+        num/=10;
+    }
+    return count;
+}
+int main(){
+    int num, rev,countD;
+    printf("Enter the number:");
+    scanf("%d",&num);
+    if(num==0){
+        printf("Reversed no.=0\n");
+        return 0;
+    }
+    countD = count(num);
+    rev=reversed(num);
+    printf("Reversed no. is : %0*d\n",countD,rev);
+
+    return 0;
+}
+
+OUTPUT:
+Enter the number:1690
+Reversed no. is : 0961
+ 
+Ques-3: Write a program to reverse a number using recursion.
+Code:
+#include <stdio.h>
+int reverse(int n, int rev){
+    if (n==0)
+    return rev;
+    rev=rev*10+(n%10);
+    return reverse( n/10,rev);
+}
+int main(){
+    int n;
+    printf("Enter the no. :  ");
+    scanf("%d",&n);
+    int Rev;
+    Rev=reverse(n,0);
+    printf("The reverse number is: %d",Rev);
+    return 0;
+}
+
+Output:
+Enter the no. :  40533
+The reverse number is: 33504
+
+Ques-4: Write a recursive program to calculate power of any no..
+Code:
+#include <stdio.h>
+double power(double base, int exponent) {
+    if (exponent == 0) 
+        return 1;
+    else if (exponent < 0) 
+        return 1 / power(base, -exponent);
+    else
+        return base * power(base, exponent - 1);
+}
+int main() {
+    double base;
+    int exponent;
+    printf("Enter base: ");
+    scanf("%lf", &base);
+    printf("Enter exponent: ");
+    scanf("%d", &exponent);
+    printf("%.5lf^%d = %.5lf\n", base, exponent, power(base, exponent));
+    return 0;
+}
+Output:
+Enter base: 4
+Enter exponent: -3
+4.00000^-3 = 0.01562
+
+-------------------------------------------------------------------------
+Practical - 4
+-------------------------------------------------------------------------
+1. Write a program that takes as input an array of numbers along an partition element from the array and returns a partition array corresponding to the element.
+#include <stdio.h>
+
+void partition(int arr[], int n, int p, int result[]) {
+    int i;
+    int l = 0;
+    int g = n - 1;
+
+   for (i = 0; i < n; i++) {
+        if (arr[i] < p) {
+            result[l++] = arr[i];
+        } else if (arr[i] > p) {
+            result[g--] = arr[i];
+        }
+    }
+    int index = l;
+    result[index] = p;
+    printf("Partitioned Array: ");
+    for (i = 0; i < n; i++) {
+        printf("%d ", result[i]);
+    }
+    printf("\n");
+}
+int main() {
+    int arr[] = {6, 2, 10, 5, 4, 11, 15, 5};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int partitionElement = 6;
+    int result[size];
+    partition(arr, size, partitionElement, result);
+    return 0;
+}
+OUTPUT:
+Partitioned Array: 2 5 4 5 6 15 11 10 
+  _________________________________________________________________________
+2. Write a program using recursion to implement QuickSort.  
+#include <stdio.h>
+void quicksort (int [], int, int);
+int main()
+{
+    int list[50];
+    int size, i;
+
+    printf("How many elements you want to Sort :: ");
+    scanf("%d", &size);
+    printf("\nEnter the elements below to be sorted :: \n");
+    for (i = 0; i < size; i++)
+    {
+         printf("\nEnter [ %d ] element :: ",i+1);
+        scanf("%d", &list[i]);
+    }
+    quicksort(list, 0, size - 1);
+    printf("\nAfter implementing Quick sort, Sorted List is :: \n\n");
+    for (i = 0; i < size; i++)
+    {
+        printf("%d  ", list[i]);
+    }
+    printf("\n");
+    return 0;
+}
+void quicksort(int list[], int low, int high)
+{
+    int pivot, i, j, temp;
+    if (low < high)
+    {
+        pivot = low;
+        i = low;
+        j = high;
+        while (i < j)
+        {
+            while (list[i] <= list[pivot] && i <= high)
+            {
+                i++;
+            }
+            while (list[j] > list[pivot] && j >= low)
+            {
+                j--;
+            }
+            if (i < j)
+            {
+                temp = list[i];
+                list[i] = list[j];
+                list[j] = temp;
+            }
+        }
+        temp = list[j];
+        list[j] = list[pivot];
+        list[pivot] = temp;
+        quicksort(list, low, j - 1);
+        quicksort(list, j + 1, high);
+    }
+}
+OUTPUT:
+How many elements you want to Sort :: 8
+Enter the elements below to be sorted ::
+Enter [ 1 ] element :: 6
+Enter [ 2 ] element :: 2
+Enter [ 3 ] element :: 10
+Enter [ 4 ] element :: 5
+Enter [ 5 ] element :: 4
+Enter [ 6 ] element :: 11
+Enter [ 7 ] element :: 15
+Enter [ 8 ] element :: 4
+After implementing Quick sort, Sorted List is ::
+2  4  4  5  6  10  11  15  
+______________________________________________________________
+3. Write a program to verify if Quicksort is stable.
+Hint: A sorting alogrithm is stable if the relative order of equally sorted elements is preserved.  
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+int partition(int arr[], int l, int h){
+    int temp;
+    int pivot = arr[h];
+    int i = l-1;
+    for(int j=l;j<h;j++){
+        if(arr[j] <= pivot){
+            i++;
+            temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+    }
+    temp = arr[i+1];
+    arr[i+1] = arr[h];
+    arr[h] = temp;  
+    return i+1;
+}
+void quickSort(int arr[], int l, int h){
+    if(l<h){
+        int p = partition(arr, l, h);
+        quickSort(arr, l, p-1);
+        quickSort(arr, p+1, h);
+    }
+}
+bool isStable(int original[], int sorted[], int size) {
+    for (int i = 0; i < size; i++) {
+        if (original[i] == sorted[i]) {
+            if (original[i] != sorted[i]) {
+                return false;
+            }
+            else
+                return true;
+        }
+    }
+    return true;
+}
+int main() {
+    int arr[] = {6,6,6,6,4,11,15,7};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int sorted[size];
+   
+    for (int i = 0; i < size; i++) {
+        sorted[i] = arr[i];
+    }
+    quickSort(sorted, 0, size - 1);
+    if (isStable(arr, sorted, size)) {
+        printf("The quick sort is stable.\n");
+    } else {
+        printf("The quick sort is not stable.\n");
+    }
+   
+}
+OUTPUT:
+The quick sort is stable.
+
+-------------------------------------------------------------------------
+Practical - 5 
+-------------------------------------------------------------------------
+QUE 1: 
+Implement Bubble sort Algorithm and optimise it for the following input .
+Also, count the number of comparisons. Write a separate code for each implementation.
+CODE 1.1 : 
+#include <stdio.h>
+void swap(int *arr, int i, int j){
+    int temp=arr[i];
+    arr[i]=arr[j];
+    arr[j]=temp;
+}
+void bubblesort(int arr[], int n,int* count){
+    *count=0;
+    for(int j=0;j<n-1;j++){
+        for (int k=0;k<n-j-1;k++){
+            (*count)++;
+            if(arr[k]>arr[k+1])
+                swap(arr,k,k+1);
+        }
+    }
+}
+int main() {
+    int n, arr[100];
+    int count;
+    printf(" Enter the size of array:");
+    scanf("%d",&n);
+    for (int i=0;i<n;i++){
+        printf("Enter the %d th elements of array:",i);
+        scanf("%d",&arr[i]);
+    }
+    bubblesort(arr,n,&count);
+    printf(" The sorted elements are: ");
+    for (int i=0;i<n;i++){
+        printf(" %d \t ",arr[i]);
+    }
+    printf("\n No. of comparisons are:%d ",count);
+    return 0;
+}
+CODE 1.2 :
+#include <stdio.h>
+#include <stdbool.h>
+
+void swap(int *arr, int i, int j) {
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+void bubblesort(int arr[], int n, int *count) {
+    *count = 0;
+    for (int j = 0; j < n - 1; j++) {
+        bool swapped = false;
+        for (int k = 0; k < n - j - 1; k++) {
+            (*count)++;
+            if (arr[k] > arr[k + 1]) {
+                swap(arr, k, k + 1);
+                swapped = true;
+            }
+        }
+        if (!swapped)
+            break;
+    }
+}
+int main() {
+    int n, arr[100];
+    int count;
+    printf("Enter the size of array: ");
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) {
+        printf("Enter the %dth element of array: ", i);
+        scanf("%d", &arr[i]);
+    }
+    bubblesort(arr, n, &count);
+    printf("The sorted elements are: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d\t", arr[i]);
+    }
+    printf("\nNumber of comparisons are: %d\n", count);
+    return 0;
+}
+QUE 2: Construct a binary tree from a random array of size 15. Also, write a recursive function for in-order transversal to print the elements.
+CODE:
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+};
+struct Node* createNode(int data) {
+    struct Node* node = (struct Node*)malloc(sizeof(struct Node));
+    node->data = data;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
+struct Node* insertNode(struct Node* root, int data) {
+    if (root == NULL) {
+        return createNode(data);
+    }
+    if (data < root->data) {
+        root->left = insertNode(root->left, data);
+    } else {
+        root->right = insertNode(root->right, data);
+    }
+    return root;
+}
+void inOrderTraversal(struct Node* root) {
+    if (root != NULL) {
+        inOrderTraversal(root->left);
+        printf("%d ", root->data);
+        inOrderTraversal(root->right);
+    }
+}
+int main() {
+    int arr[15] = {23, 15, 7, 18, 50, 34, 42, 70, 11, 2, 20, 30, 25, 47, 60};
+    struct Node* root = NULL;
+    for (int i = 0; i < 15; i++) {
+        root = insertNode(root, arr[i]);
+    }
+    printf("In-order traversal of the binary tree: ");
+    inOrderTraversal(root);
+    printf("\n");
+    return 0;
+}
+
+Output:
+In-order traversal of the binary tree: 2 7 11 15 18 20 23 25 30 34 42 47 50 60 70 
+
+-------------------------------------------------------------------------
+Practical - 6 
+-------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------
+Practical - 7 
+-------------------------------------------------------------------------
+
+-------------------------------------------------------------------------
+Practical - 8 
+-------------------------------------------------------------------------
+Ques: Implement the Huffman coding algorithm. Find out the reason when to use a sorting algorithm (as in knapsack problem) and when to use a heap (as in Huffman coding).
+Code:
+import heapq
+class Node:
+    def _init_(self, freq, symbol, left=None, right=None):
+        self.freq = freq        
+        self.symbol = symbol    
+        self.left = left        
+        self.right = right      
+        self.huff = ''          
+    def _lt_(self, nxt):
+        return self.freq < nxt.freq
+def printNodes(node, val=''):
+    newVal = val + str(node.huff) 
+    if node.left:
+        printNodes(node.left, newVal)
+    if node.right:
+        printNodes(node.right, newVal)
+    if not node.left and not node.right:
+        print(f"{node.symbol} -> {newVal}")
+chars = ['a', 'b', 'c', 'd', 'e', 'f']
+freq = [5, 9, 12, 13, 16, 45]
+nodes = []
+for x in range(len(chars)):
+    heapq.heappush(nodes, Node(freq[x], chars[x]))
+while len(nodes) > 1:
+    left = heapq.heappop(nodes)
+    right = heapq.heappop(nodes)
+    left.huff = 0
+    right.huff = 1
+    newNode = Node(left.freq + right.freq, left.symbol + right.symbol, left, right)
+    heapq.heappush(nodes, newNode)
+print("Huffman Codes:")
+printNodes(nodes[0])
+ 
+Output:
+Huffman Codes:
+f -> 0
+c -> 100
+d -> 101
+a -> 1100
+b -> 1101
+e -> 111
+-------------------------------------------------------------------------
+Practical - 9 
+-------------------------------------------------------------------------
+Ques1: Write a program to solve the Job sequencing problem with deadlines using a greedy algorithm. The program should find the maximum profit that can be earned by scheduling jobs within their deadlines.
+Code:
+Job sequencing :
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Job {
+    char id;    
+    int dead;   
+    int profit; 
+} Job;
+int compare(const void* a, const void* b) {
+    Job* temp1 = (Job*)a;
+    Job* temp2 = (Job*)b;
+    return (temp2->profit - temp1->profit);
+}
+int min(int num1, int num2) { 
+    return (num1 > num2) ? num2 : num1; 
+}
+void printJobScheduling(Job arr[], int n) {
+    qsort(arr, n, sizeof(Job), compare);
+    int result[n];
+    bool slot[n]; 
+    int totalProfit = 0; 
+    for (int i = 0; i < n; i++)
+        slot[i] = false;
+    for (int i = 0; i < n; i++) {
+        for (int j = min(n, arr[i].dead) - 1; j >= 0; j--) {
+            if (slot[j] == false) {
+                result[j] = i;
+                slot[j] = true; 
+                totalProfit += arr[i].profit;
+                break;
+            }
+        }
+    }
+    printf("Scheduled jobs: "); 
+    for (int i = 0; i < n; i++) {
+        if (slot[i])
+            printf("%c ", arr[result[i]].id);
+    }
+    printf("\nTotal Profit: %d\n", totalProfit);
+}
+int main() {
+    Job arr[] = { 
+        { 'a', 2, 6 }, { 'b', 1, 8 }, { 'c', 1, 5 }, { 'd', 2, 10 }, };
+    int n = sizeof(arr) / sizeof(arr[0]);
+    printf("Following is maximum profit sequence of jobs \n");
+    printJobScheduling(arr, n);
+    return 0;
+}
+Output:
+Following is maximum profit sequence of jobs 
+Scheduled jobs: b d 
+Total Profit: 18
+
+Ques2: Implement Prim's Algorithm using a Min heap to find the minimum cost MST of any random graph.
+Code:
+import sys
+class Graph():
+    def _init_(self, vertices):
+        self.V = vertices
+        self.graph = [[0 for column in range(vertices)]
+                      for row in range(vertices)]
+    def printMST(self, parent):
+        print("Edge \tWeight")
+        for i in range(1, self.V):
+            print(parent[i], "-", i, "\t", self.graph[i][parent[i]])
+    def minKey(self, key, mstSet):
+        min = sys.maxsize
+        for v in range(self.V):
+            if key[v] < min and mstSet[v] == False:
+                min = key[v]
+                min_index = v
+        return min_index
+    def primMST(self):
+        key = [sys.maxsize] * self.V
+        parent = [None] * self.V  
+        key[0] = 0
+        mstSet = [False] * self.V
+        parent[0] = -1  
+        for cout in range(self.V):
+            u = self.minKey(key, mstSet)
+            mstSet[u] = True
+            for v in range(self.V):
+                if self.graph[u][v] > 0 and mstSet[v] == False \
+                and key[v] > self.graph[u][v]:
+                    key[v] = self.graph[u][v]
+                    parent[v] = u
+        self.printMST(parent)
+if _name_ == '_main_':
+    g = Graph(5)
+    g.graph = [[0, 2, 0, 6, 0],
+               [2, 0, 3, 8, 5],
+               [0, 3, 0, 0, 7],
+               [6, 8, 0, 0, 9],
+               [0, 5, 7, 9, 0]]
+    g.primMST()
+Another code:
+import heapq
+
+def prim_mst(graph):
+    num_vertices = len(graph)
+    key = [float('inf')] * num_vertices 
+    parent = [-1] * num_vertices          
+    in_mst = [False] * num_vertices      
+    key[0] = 0                          
+    min_heap = [(0, 0)]                  
+    while min_heap:
+        current_key, u = heapq.heappop(min_heap)
+        in_mst[u] = True
+        for v in range(num_vertices):
+            weight = graph[u][v]
+            if weight > 0 and not in_mst[v] and weight < key[v]:
+                key[v] = weight          
+                parent[v] = u             
+                heapq.heappush(min_heap, (key[v], v))  
+    print("Edges in the Minimum Spanning Tree:")
+    for i in range(1, num_vertices):
+        print(f"Vertex {parent[i]} - {i} : {graph[i][parent[i]]}")
+def main():
+    num_vertices = int(input("Enter number of vertices: "))
+    print("Enter the adjacency matrix (enter 0 if there is no edge):")
+    graph = []
+    for _ in range(num_vertices):
+        row = list(map(int, input().split()))
+        graph.append(row)
+    prim_mst(graph)
+if _name_ == "_main_":
+    main()
+Output:
+Edge 	Weight
+0 - 1 	 2
+1 - 2 	 3
+0 - 3 	 6
+1 - 4 	 5
+
+-------------------------------------------------------------------------
+Practical - 10 
+-------------------------------------------------------------------------
+Ques1: Implement the BFS algorithm.
+Ques2: Modify your BFS algorithm to detect cycles in a graph.
+Code:
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+#define V 5 
+int minDistance(int dist[], int sptSet[]) {
+    int min = INT_MAX, min_index;
+    for (int v = 0; v < V; v++) {
+        if (sptSet[v] == 0 && dist[v] <= min) {
+            min = dist[v];
+            min_index = v;
+        }
+    }
+    return min_index;
+}
+void dijkstra(int graph[V][V], int src) {
+    int dist[V];  
+    int sptSet[V];
+    for (int i = 0; i < V; i++) {
+        dist[i] = INT_MAX;
+        sptSet[i] = 0;
+    }
+    dist[src] = 0;
+    for (int count = 0; count < V - 1; count++) {
+        int u = minDistance(dist, sptSet);
+        sptSet[u] = 1;
+        for (int v = 0; v < V; v++) {
+            if (!sptSet[v] && graph[u][v] && dist[u] != INT_MAX && dist[u] + graph[u][v] < dist[v]) {
+                dist[v] = dist[u] + graph[u][v];
+            }
+        }
+    }
+    printf("Vertex\tDistance from Source\n");
+    for (int i = 0; i < V; i++) 
+        printf("%d\t%d\n", i, dist[i]);
+}
+int main() {
+    int graph[V][V] = {{0, 10, 0, 30, 100},{10, 0, 50, 0, 0},{0, 50, 0, 20, 10}, {30, 0, 20, 0, 60},{100, 0, 10, 60, 0}};
+    dijkstra(graph, 0);
+    return 0;
+}
+Output:
+Vertex	Distance from Source
+0	0
+1	10
+2	50
+3	30
+4	60
