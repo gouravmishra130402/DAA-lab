@@ -1,0 +1,57 @@
+// DAA LAB 6 : 11 September 2024
+
+//PROGRAM 2: Implement the Fibonacci Program using both Divide and Conquer, and Dynamic
+//Programming
+
+#include <stdio.h>
+
+// Function to calculate Fibonacci using Divide and Conquer (Recursive)
+int fibonacci_recursive(int n) 
+{
+    if (n <= 1) 
+    {
+        return n;
+    }
+    return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2);
+}
+
+// Function to calculate Fibonacci using Dynamic Programming (Iterative)
+int fibonacci_dynamic(int n) 
+{
+    if (n <= 1) 
+    {
+        return n;
+    }
+    int fib[n + 1];
+    fib[0] = 0;
+    fib[1] = 1;
+    for (int i = 2; i <= n; i++) 
+    {
+        fib[i] = fib[i - 1] + fib[i - 2];
+    }
+    return fib[n];
+}
+
+int main() 
+{
+    int n;
+    
+    printf("Enter the position in Fibonacci sequence: ");
+    scanf("%d", &n);
+    
+    // Divide and Conquer
+    printf("Fibonacci (Divide and Conquer) of %d: %d\n", n, fibonacci_recursive(n));
+    
+    // Dynamic Programming
+    printf("Fibonacci (Dynamic Programming) of %d: %d\n", n, fibonacci_dynamic(n));
+    
+    return 0;
+}
+
+
+OUTPUT:
+
+Enter the position in Fibonacci sequence: 7
+Fibonacci (Divide and Conquer) of 7: 13
+Fibonacci (Dynamic Programming) of 7: 13
+
