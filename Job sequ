@@ -1,0 +1,130 @@
+/*DAA LAB 9 16 October 2024
+Program 1 : Write a program to solve job sequencing problem with deadlines using a greedy algorithm
+*/
+
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// A structure to represent a job
+typedef struct Job 
+{
+    char id[3]; // Job Id
+    int dead;   // Deadline of job
+    int profit; // Profit if job is completed before or on deadline
+} Job;
+
+// This function is used for sorting all jobs according to profit
+int compare(const void* a, const void* b) 
+{
+    Job* temp1 = (Job*)a;
+    Job* temp2 = (Job*)b;
+    return (temp2->profit - temp1->profit);
+}
+
+// Find minimum between two numbers
+int min(int num1, int num2) 
+{
+    return (num1 < num2) ? num1 : num2;
+}
+
+// Returns maximum profit from jobs
+void printJobScheduling(Job arr[], int n) 
+{
+    // Sort all jobs according to decreasing order of profit
+    qsort(arr, n, sizeof(Job), compare);
+
+    int result[n]; // To store result (Sequence of jobs)
+    bool slot[n];  // To keep track of free time slots
+
+    // Initialize all slots to be free
+    for (int i = 0; i < n; i++) 
+    {
+        slot[i] = false;
+    }
+
+    int totalProfit = 0; // Variable to store total profit
+
+    // Iterate through all given jobs
+    for (int i = 0; i < n; i++) 
+    {
+        // Find a free slot for this job
+        for (int j = min(n, arr[i].dead) - 1; j >= 0; j--) 
+        {
+            // Free slot found
+            if (!slot[j]) 
+            {
+                result[j] = i; // Add this job to result
+                slot[j] = true; // Make this slot occupied
+                totalProfit += arr[i].profit; // Add profit to total profit
+                break;
+            }
+        }
+    }
+
+    // Print the result
+    printf("Scheduled Jobs: ");
+    for (int i = 0; i < n; i++) 
+    {
+        if (slot[i]) {
+            printf("%s ", arr[result[i]].id);
+        }
+    }
+    printf("\nTotal Profit: %d\n", totalProfit);
+}
+
+// Driver's code
+int main() 
+{
+    int n;
+
+    // Ask the user for the number of jobs
+    printf("Enter the number of jobs: ");
+    scanf("%d", &n);
+
+    // Dynamically allocate memory for jobs
+    Job* arr = (Job*)malloc(n * sizeof(Job));
+
+    // Input job details
+    for (int i = 0; i < n; i++) 
+    {
+        printf("Enter job ID (e.g., J1): ");
+        scanf("%s", arr[i].id);
+        printf("Enter deadline for job %s: ", arr[i].id);
+        scanf("%d", &arr[i].dead);
+        printf("Enter profit for job %s: ", arr[i].id);
+        scanf("%d", &arr[i].profit);
+    }
+
+    printf("Following is the maximum profit sequence of jobs:\n");
+
+    // Function call
+    printJobScheduling(arr, n);
+
+    // Free the allocated memory
+    free(arr);
+    
+    return 0;
+}
+
+
+OUTPUT:
+
+
+Enter the number of jobs: 4
+Enter job ID (e.g., J1): J1
+Enter deadline for job J1: 2
+Enter profit for job J1: 6
+Enter job ID (e.g., J1): J2
+Enter deadline for job J2: 1
+Enter profit for job J2: 8
+Enter job ID (e.g., J1): J3
+Enter deadline for job J3: 1
+Enter profit for job J3: 5
+Enter job ID (e.g., J1): J4
+Enter deadline for job J4: 2
+Enter profit for job J4: 10
+Following is the maximum profit sequence of jobs:
+Scheduled Jobs: J2 J4 
+Total Profit: 18
