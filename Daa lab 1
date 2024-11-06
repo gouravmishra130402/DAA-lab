@@ -1,0 +1,173 @@
+                                             //DAA LAB 1 : DATE 31 JULY 2024
+
+
+// PROGRAM 1: Write a program that takes as input a natural number n and outputs the sum of the first n natural numbers.
+
+#include<stdio.h>
+int sum(int n);
+int main()
+{
+    int n;
+    printf("Enter the number upto you want the sum n= ");
+    scanf("%d",&n);
+    printf("The sum of first %d natural numbers is %d",n,sum(n) );
+    return 0;
+}
+int sum (int n)
+{
+    if (n==1)
+    return 1;
+    return (n+sum(n-1));
+} 
+
+OUTPUT:
+Enter the number upto you want the sum n= 100
+The sum of first 100 natural numbers is 5050
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// PROGRAM 2 : Write a program that takes as input a natural number n and gives n! as output.
+
+#include <stdio.h>
+int fact(int);
+int main() 
+{
+    int c, n;
+    printf("Enter the number whose factorial you want n: ");
+    scanf("%d", &n);
+
+    if (n < 0) 
+    {
+        printf("Factorial is not defined for negative numbers.\n");
+    } 
+    else 
+    {
+        c = fact(n);
+        printf("The value of %d! = %d\n", n, c);
+    }
+
+    return 0;
+}
+
+int fact(int n) 
+{
+    if (n == 0 || n == 1) 
+    {
+        return 1;
+    } 
+    else 
+    {
+        return (n * fact(n - 1));
+    }
+}
+
+
+OUTPUT:
+
+Enter the number whose factorial you want n: 7
+The value of 7! = 5040
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// PROGRAM 3 : Write a program that takes as input a natural number n and prints the first n numbers of the Fibonacci sequence.
+#include <stdio.h>
+
+int fib(int n) 
+{
+    if (n <= 0) 
+    {
+        return 0;
+    } 
+    else if (n == 1) 
+    {
+        return 0;
+    } 
+    else if (n == 2) 
+    {
+        return 1;
+    } 
+    else 
+    {
+        return fib(n-1) + fib(n-2);
+    }
+}
+
+void print_fib(int n) 
+{
+    for (int i = 1; i <= n; i++) 
+    {
+        printf("%d ", fib(i));
+    }
+    printf("\n");
+}
+
+int main() 
+{
+    int n;
+    printf("Enter the number of terms you want: ");
+    scanf("%d", &n);
+
+    if (n <= 0) 
+    {
+        printf("Please enter a natural number greater than 0.\n");
+    } 
+    else 
+    {
+        print_fib(n);
+    }
+
+    return 0;
+}
+
+
+OUTPUT:
+
+Enter the number of terms you want: 11
+0 1 1 2 3 5 8 13 21 34 55 
