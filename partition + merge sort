@@ -1,0 +1,319 @@
+// LAB 4 : 21 August 2024 
+// Program 1: Write a program that takes input an array of numbers along an partition element from the array and 
+// returns a Partition array corresponding to the element.
+
+#include <stdio.h>
+
+void partition_array(int arr[], int size, int pivot) 
+{
+    int lt[size]; // Less than pivot
+    int ge[size]; // Greater than or equal to pivot
+    int lt_count = 0, ge_count = 0;
+
+    // Partition the array
+    for (int i = 0; i < size; i++) 
+    {
+        if (arr[i] < pivot) 
+        {
+            lt[lt_count++] = arr[i];
+        } else 
+        {
+            ge[ge_count++] = arr[i];
+        }
+    }
+
+    // Combine the partitions
+    for (int i = 0; i < lt_count; i++) 
+    {
+        arr[i] = lt[i];
+    }
+    for (int i = 0; i < ge_count; i++) 
+    {
+        arr[lt_count + i] = ge[i];
+    }
+}
+
+int main() 
+{
+    int array[] = {6,2,10,5,4,11,15,5};
+    int size = sizeof(array) / sizeof(array[0]);
+    int pivot = 6;
+
+    printf("Original array: ");
+    for (int i = 0; i < size; i++) 
+    {
+        printf("%d ", array[i]);
+    }
+    printf("\n");
+
+    partition_array(array, size, pivot);
+
+    printf("Partitioned array: ");
+    for (int i = 0; i < size; i++) 
+    {
+        printf("%d ", array[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
+
+
+OUTPUT:
+
+Original array: 6 2 10 5 4 11 15 5 
+Partitioned array: 2 5 4 5 6 10 11 15 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// LAB 4 : 21 August 2024 
+// Program 2 : Write a program using recursion to implement Merge Sort.
+
+#include <stdio.h>
+
+// Function to swap two elements
+void swap(int *a, int *b) 
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// Partition function for quick sort
+int partition(int arr[], int low, int high) 
+{
+    int pivot = arr[high]; // Choose the last element as pivot
+    int i = low - 1;       // Index of the smaller element
+
+    // Rearrange elements based on pivot
+    for (int j = low; j < high; j++) 
+    {
+        if (arr[j] < pivot) 
+        {
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
+    }
+    swap(&arr[i + 1], &arr[high]);
+    return i + 1; // Return the partition index
+}
+
+// Recursive quick sort function
+void quick_sort(int arr[], int low, int high) 
+{
+    if (low < high) {
+        int pi = partition(arr, low, high); // Partition the array
+
+        // Recursively sort elements before and after partition
+        quick_sort(arr, low, pi - 1);
+        quick_sort(arr, pi + 1, high);
+    }
+}
+
+// Function to print an array
+void print_array(int arr[], int size) 
+{
+    for (int i = 0; i < size; i++) 
+    {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main() 
+{
+    int arr[] = {6,2,10,5,4,11,15,5};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    printf("Original array: ");
+    print_array(arr, size);
+
+    quick_sort(arr, 0, size - 1);
+
+    printf("Sorted array: ");
+    print_array(arr, size);
+
+    return 0;
+}
+
+
+
+OUTPUT:
+Original array: 6 2 10 5 4 11 15 5 
+Sorted array: 2 4 5 5 6 10 11 15 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//LAB 4 : 21 August 2024 
+// Program 3: Write a program to verify if QuickSort is Stable.
+
+
+#include <stdio.h>
+
+// Function to swap two elements in both arrays
+void swap(int arr[], int index[], int i, int j) 
+{
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+
+    temp = index[i];
+    index[i] = index[j];
+    index[j] = temp;
+}
+
+// Partition function for quick sort
+int partition(int arr[], int index[], int low, int high) 
+{
+    int pivot = arr[high]; // Choose the last element as pivot
+    int i = low - 1; // Index of the smaller element
+
+    // Rearrange elements based on pivot
+    for (int j = low; j < high; j++) 
+    {
+        if (arr[j] < pivot) 
+        {
+            i++;
+            swap(arr, index, i, j);
+        }
+    }
+    swap(arr, index, i + 1, high);
+    return i + 1; // Return the partition index
+}
+
+// Recursive quick sort function
+void quick_sort(int arr[], int index[], int low, int high) 
+{
+    if (low < high) 
+    {
+        int pi = partition(arr, index, low, high); // Partition the array
+
+        // Recursively sort elements before and after partition
+        quick_sort(arr, index, low, pi - 1);
+        quick_sort(arr, index, pi + 1, high);
+    }
+}
+
+// Function to print the array
+void print_array(int arr[], int index[], int size) 
+{
+    for (int i = 0; i < size; i++) 
+    {
+        printf("(%d, %d) ", arr[i], index[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int arr[] = {6,2,10,5,4,11,15,5}; // Array of values
+    int index[] = {0, 1, 2, 3, 4,5,6,7}; // Array to track original indices
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    printf("Original array: ");
+    print_array(arr, index, size);
+
+    quick_sort(arr, index, 0, size - 1);
+
+    printf("Sorted array: ");
+    print_array(arr, index, size);
+
+    return 0;
+}
+
+
+
+
+OUTPUT:
+Original array: (6, 0) (2, 1) (10, 2) (5, 3) (4, 4) (11, 5) (15, 6) (5, 7) 
+Sorted array: (2, 1) (4, 4) (5, 7) (5, 3) (6, 0) (10, 2) (11, 5) (15, 6) 
